@@ -1,130 +1,124 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 
-import StartPost from './Components/StartPost';
+import { useState } from "react";
+import ChatBar from "./Components/ChatBar.jsx";import "./App.css";
 
-import './App.css'
-import SuggestedPeople from './Components/SuggestedPeople'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // 1. เก็บลิสต์หน้าต่างแชทที่เปิดอยู่
+  const [activeChats, setActiveChats] = useState([]);
+
+  // 2. เก็บประวัติการแชท (แยกตาม ID ของคนคุย)
+  const [chatHistories, setChatHistories] = useState({
+    1: [{ text: "สวัสดีครับฟง! มีโปรเจกต์ใหม่มาแนะนำ", type: "inbound" }],
+    2: [{ text: "See you later!", type: "inbound" }],
+  });
+
+  const contacts = [
+    {
+      id: 1,
+      name: "Melissa Torres",
+      role: "LinkedIn Offer",
+      lastMsg: "Update your job...",
+      lastTime: "11:15 AM",
+      online: true,
+    },
+    {
+      id: 2,
+      name: "CK Cheong",
+      role: "CEO @ Fastwork",
+      lastMsg: "See you later!",
+      lastTime: "Yesterday",
+      online: false,
+    },
+  ];
+
+  // ฟังก์ชันเปิดหน้าต่างแชท
+  const openChat = (user) => {
+    if (!activeChats.find((c) => c.id === user.id)) {
+      setActiveChats([...activeChats, user]);
+    }
+  };
+
+  // ฟังก์ชันปิดหน้าต่างแชท
+  const closeChat = (id) => {
+    setActiveChats(activeChats.filter((c) => c.id !== id));
+  };
+
+  // ฟังก์ชันส่งข้อความ
+  const handleSendMessage = (userId, text) => {
+    if (!text.trim()) return;
+
+    setChatHistories((prev) => ({
+      ...prev,
+      [userId]: [...(prev[userId] || []), { text: text, type: "outbound" }],
+    }));
+  };
 
   return (
-    <>
+
+    <div className="app-container">
+      {/* ส่วนเนื้อหาหลักของเว็บ (ถ้ามี) */}
+
+    </div>
       <div className="flex justify-center gap-6 p-6">
         <SuggestedPeople />
       </div>
+
       <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+        <h1>Hackathon Project</h1>
+        <p>ลองคลิกที่แถบ Messaging ขวาล่างเพื่อเริ่มแชท!</p>
       </section>
 
-      <div className="ticks"></div>
+      {/* Messaging System Container */}
+      <div className="messaging-container">
+        {/* Render หน้าต่างแชทที่เด้งออกมา */}
+        {activeChats.map((chat) => (
+          <div key={chat.id} className="chat-window">
+            <div className="chat-header">
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "5px" }}
+              >
+                <span style={{ fontWeight: "bold", fontSize: "14px" }}>
+                  {chat.name}
+                </span>
+              </div>
+              <button className="close-btn" onClick={() => closeChat(chat.id)}>
+                ✕
+              </button>
+            </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            <div className="message-list">
+              {chatHistories[chat.id]?.map((msg, index) => (
+                <div key={index} className={`msg-bubble msg-${msg.type}`}>
+                  {msg.text}
+                </div>
+              ))}
+            </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            <div className="chat-input-area">
+              <input
+                type="text"
+                placeholder="Write a message..."
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSendMessage(chat.id, e.target.value);
+                    e.target.value = ""; // เคลียร์ช่องพิมพ์หลังส่ง
+                  }
+                }}
+              />
+            </div>
+          </div>
+        ))}
+
+        {/* แถบรายชื่อผู้ติดต่อ (แยก Component) */}
+        <ChatBar contacts={contacts} onUserClick={openChat} />
+      </div>
+    </div>
+  );
 }
+
+
+
 
 function MainFeed() {
   return (
