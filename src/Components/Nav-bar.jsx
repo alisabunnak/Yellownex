@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Home,
   Users,
@@ -6,6 +7,17 @@ import {
   Bell,
   UserCircle,
   Grid,
+=======
+
+import { 
+  Home, 
+  Users, 
+  Briefcase, 
+  MessageSquare, 
+  Bell, 
+  UserCircle, 
+  Grid, 
+>>>>>>> d4673fd (No_config2)
   Search,
   ChevronDown,
 } from "lucide-react";
