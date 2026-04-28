@@ -6,11 +6,11 @@ import PostFeed from "../Components/03_PostFeed.jsx";
 
 export default function Home() {
   return (
-    <div className="space-y-4 flex justify-center">
-      {/* Start Post */}
+    // CHANGE: Added flex-col and max-w to keep the feed centered and correctly sized
+    <div className="flex flex-col gap-4 w-full max-w-[550px] mx-auto">
       <StartPost />
 
-      {/* Posts Feed - ใช้ข้อมูลจาก mockData */}
+      {/* Posts Feed */}
       {postsData.map((post) => (
         <PostFeed key={post.id} post={post} />
       ))}

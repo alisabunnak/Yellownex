@@ -54,12 +54,22 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  /* เพิ่มส่วนนี้เข้าไป */
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   margin: 0;
-  background-color: #000000; /* Pure black background */
-  color: #e5e7eb; /* Light grey text */
+  padding: 0;
+  background-color: #000000;
+  overflow-x: hidden;
+  /* ป้องกันการเลื่อนซ้ายขวาที่ไม่ได้ตั้งใจ */
+  background-color: #000000;
+  /* Pure black background */
+  color: #e5e7eb;
+  /* Light grey text */
 }
 
 h1,
@@ -73,20 +83,24 @@ h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
+
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
+
   @media (max-width: 1024px) {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
