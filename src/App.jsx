@@ -6,12 +6,16 @@ import heroImg from './assets/hero.png'
 import StartPost from './Components/StartPost';
 
 import './App.css'
+import SuggestedPeople from './Components/SuggestedPeople'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <div className="flex justify-center gap-6 p-6">
+        <SuggestedPeople />
+      </div>
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
