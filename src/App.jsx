@@ -1,5 +1,6 @@
 import { userProfile, postsData } from "./data/mockData.js";
-import SuggestedPeople from "./components/SuggestedPeople";
+import SuggestedPeople from "./Components/SuggestedPeople.jsx";
+import Navbar from "./Components/Nav-bar.jsx";
 
 function App() {
   return (
@@ -14,40 +15,8 @@ function App() {
       padding: 0
     }}>
 
-      {/* 2. NAVIGATION BAR: ส่วนที่หายไป */}
-      <nav style={{
-        backgroundColor: '#1a1a1a',
-        borderBottom: '1px solid #333',
-        height: '64px',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000, // มั่นใจว่าอยู่เหนือทุกอย่าง
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          width: '100%',
-          margin: '0 auto',
-          padding: '0 20px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <h1 style={{ fontSize: '24px', color: '#3b82f6', margin: 0, fontWeight: 'bold' }}>
-            Yellownex
-          </h1>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '14px', color: '#9ca3af' }}>{userProfile.name}</span>
-            <img
-              src={userProfile.avatar}
-              style={{ width: '34px', height: '34px', borderRadius: '50%', border: '1px solid #444' }}
-              alt="avatar"
-            />
-          </div>
-        </div>
-      </nav>
+      {/* 2. NAVIGATION BAR: ใช้ Component ที่สร้างไว้ */}
+      <Navbar />
 
       {/* 3. MAIN CONTENT: ส่วนที่แบ่งเป็น 3 คอลัมน์ */}
       <div style={{
@@ -62,7 +31,7 @@ function App() {
       }}>
 
         {/* คอลัมน์ซ้าย: Profile Summary */}
-        <aside style={{ width: '250px', flexShrink: 0 }} className="hidden-mobile">
+        <aside style={{ width: '250px', flexShrink: 0 }} className="hidden md:block">
           <div style={{
             backgroundColor: '#1a1a1a',
             borderRadius: '12px',
@@ -73,6 +42,7 @@ function App() {
             <div style={{ textAlign: 'center', padding: '16px', marginTop: '-40px' }}>
               <img
                 src={userProfile.avatar}
+                alt="avatar"
                 style={{ width: '64px', height: '64px', borderRadius: '50%', border: '4px solid #1a1a1a' }}
               />
               <h3 style={{ margin: '8px 0 4px', fontSize: '16px' }}>{userProfile.name}</h3>
@@ -93,7 +63,7 @@ function App() {
           {/* Start Post Box */}
           <div style={{ backgroundColor: '#1a1a1a', borderRadius: '12px', border: '1px solid #333', padding: '16px' }}>
             <div style={{ display: 'flex', gap: '12px' }}>
-              <img src={userProfile.avatar} style={{ width: '48px', height: '48px', borderRadius: '50%' }} />
+              <img src={userProfile.avatar} alt="user avatar" style={{ width: '48px', height: '48px', borderRadius: '50%' }} />
               <div style={{
                 flex: 1,
                 border: '1px solid #333',
@@ -120,7 +90,7 @@ function App() {
               padding: '16px'
             }}>
               <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
-                <img src={post.author.avatar} style={{ width: '48px', height: '48px', borderRadius: '50%' }} />
+                <img src={post.author.avatar} alt={post.author.name} style={{ width: '48px', height: '48px', borderRadius: '50%' }} />
                 <div>
                   <div style={{ fontSize: '14px', fontWeight: 'bold' }}>{post.author.name}</div>
                   <div style={{ fontSize: '11px', color: '#9ca3af' }}>{post.author.headline}</div>
@@ -131,14 +101,14 @@ function App() {
                 {post.content}
               </p>
               {post.image && (
-                <img src={post.image} style={{ width: '100%', borderRadius: '8px', border: '1px solid #333' }} />
+                <img src={post.image} alt="post content" style={{ width: '100%', borderRadius: '8px', border: '1px solid #333' }} />
               )}
             </div>
           ))}
         </main>
 
         {/* คอลัมน์ขวา: Suggested People */}
-        <aside style={{ width: '300px', flexShrink: 0 }} className="hidden-mobile">
+        <aside style={{ width: '300px', flexShrink: 0 }} className="hidden lg:block">
           <SuggestedPeople />
         </aside>
 
